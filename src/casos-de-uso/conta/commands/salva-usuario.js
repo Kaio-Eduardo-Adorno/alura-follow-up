@@ -1,7 +1,8 @@
 import fs from 'fs';
+import { listaUsuario } from './lista-usuario';
 
 const salvaUsuario = (conta) => {
-  const contas = JSON.parse(fs.readFileSync('./dados/contas.json'));
+  const contas = listaUsuario();
 
   contas.push(conta);
 

@@ -13,14 +13,16 @@ test('Usuario Criado', () => {
     fakeAccount.senha
   );
 
+  expect(result).toHaveProperty('id');
   expect(result.nome).toBe(fakeAccount.nome);
   expect(result.email).toBe(fakeAccount.email);
   expect(result.senha).toBe(fakeAccount.senha);
+  expect(result).toHaveProperty('dataCriacao');
 });
 
 test('Falha ao criar usuario', () => {
   const result = criaUsuario();
-  expect(result).toStrictEqual([
+  expect(result.erros).toStrictEqual([
     { campo: 'senha', mensagem: 'A senha precisa ser do tipo String' },
     { campo: 'senha', mensagem: 'Senha não pode ser vazia' },
     { campo: 'senha', mensagem: 'Senha precisa conter no mínimo 8 caracteres' },

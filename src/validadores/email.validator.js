@@ -1,4 +1,5 @@
 import validator from 'validator';
+import { listaUsuario } from '../casos-de-uso/conta/conta.repository';
 
 const emailValidator = (email) => {
   const validacao = {
@@ -25,6 +26,18 @@ const emailValidator = (email) => {
     validacao.erros.push({
       campo: 'email',
       mensagem: 'Formato de Email inválido',
+    });
+
+  const contasCadastradas = listaUsuario();
+
+  const existeContaComEmail = contasCadastradas.some(
+    (contaCadastrada) => contaCadastrada.email === email
+  );
+
+  if (existeContaComEmail)
+    validacao.erros.push({
+      campo: 'email',
+      mensagem: 'O Email já está cadastrado',
     });
 
   if (validacao.erros.length) validacao.temErro = true;
