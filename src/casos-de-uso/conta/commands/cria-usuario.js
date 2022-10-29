@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { EntidadeConta } from '../../../entidades/conta.entity.js';
 import { formataData } from '../../../utils/formataData.js';
 import { criaContaValidator } from '../../../validadores/cria-conta.validator.js';
 import { salvaUsuario, listaUsuario } from '../conta.repository.js';
@@ -12,14 +13,7 @@ const criaUsuario = (nome, email, senha) => {
       dados: { nome, email, senha },
     };
   }
-
-  const conta = {
-    id: crypto.randomUUID(),
-    nome: nome,
-    email: email,
-    senha: senha,
-    dataCriacao: formataData(),
-  };
+  const conta = new EntidadeConta(nome, email, senha);
 
   salvaUsuario(conta);
 

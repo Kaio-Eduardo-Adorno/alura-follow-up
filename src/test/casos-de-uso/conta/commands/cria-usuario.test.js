@@ -1,23 +1,24 @@
 import { criaUsuario } from '../../../../casos-de-uso/conta/conta.repository';
 import { faker } from '@faker-js/faker';
+import { EntidadeConta } from '../../../../entidades/conta.entity';
 
 test('Usuario Criado', () => {
-  const fakeAccount = {
-    nome: faker.name.fullName(),
-    email: faker.internet.email(),
-    senha: faker.internet.password(),
-  };
+  const fakeAccount = new EntidadeConta(
+    faker.name.fullName(),
+    faker.internet.email(),
+    faker.internet.password()
+  );
+
   const result = criaUsuario(
     fakeAccount.nome,
     fakeAccount.email,
     fakeAccount.senha
   );
 
-  expect(result).toHaveProperty('id');
+  expect(result instanceof EntidadeConta).toBe(true);
   expect(result.nome).toBe(fakeAccount.nome);
   expect(result.email).toBe(fakeAccount.email);
   expect(result.senha).toBe(fakeAccount.senha);
-  expect(result).toHaveProperty('dataCriacao');
 });
 
 test('Falha ao criar usuario', () => {
