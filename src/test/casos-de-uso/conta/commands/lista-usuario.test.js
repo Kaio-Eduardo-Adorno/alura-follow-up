@@ -1,7 +1,8 @@
-import { listaUsuario } from '../../../../casos-de-uso/conta/conta.repository';
+import { ContaRepository } from '../../../../casos-de-uso/conta/conta.repository';
 
 test('Retorna Lista de Usuarios', () => {
-  const usuarios = listaUsuario();
+  const contaRepository = new ContaRepository();
+  const usuarios = contaRepository.listar();
   expect(usuarios).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
