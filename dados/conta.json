@@ -1,0 +1,18 @@
+{
+  "_id": {
+    "$oid": "63658f86b6272546bc5052ac"
+  },
+  "nome": "Dewey Beatty",
+  "email": "Ellsworth8@yahoo.com",
+  "senha": "uuwCXuRIcekKdKB",
+  "dataCriacao": {
+    "$date": {
+      "$numberLong": "1667520000000"
+    }
+  },
+  "publicacoes": [
+    {
+      "$oid": "6365a9415676b52cb6c95c3c"
+    }
+  ]
+}
