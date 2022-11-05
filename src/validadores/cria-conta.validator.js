@@ -1,24 +1,24 @@
-import { emailValidator } from './email.validator.js';
-import { nomeValidator } from './nome.validator.js';
-import { senhaValidator } from './senha.validator.js';
+import { EmailValidator } from './email.validator.js';
+import { NomeValidator } from './nome.validator.js';
+import { SenhaValidator } from './senha.validator.js';
 
-const criaContaValidator = (nome, email, senha) => {
-  const validacao = {
-    temErro: false,
-    erros: [],
-    dados: {
-      nome: nome,
-      email: email,
-      senha: senha,
-    },
-  };
-  validacao.erros.push(...senhaValidator(senha).erros);
-  validacao.erros.push(...nomeValidator(nome).erros);
-  validacao.erros.push(...emailValidator(email).erros);
+export class CriaContaValidator {
+  #EmailValidator = new EmailValidator();
+  #NomeValidator = new NomeValidator();
+  #SenhaValidator = new SenhaValidator();
 
-  if (validacao.erros.length) validacao.temErro = true;
+  executa(conta) {
+    const validacao = {
+      temErro: false,
+      erros: [],
+      dados: conta,
+    };
+    validacao.erros.push(...this.#SenhaValidator.executa(conta?.senha).erros);
+    validacao.erros.push(...this.#NomeValidator.executa(conta?.nome).erros);
+    validacao.erros.push(...this.#EmailValidator.executa(conta?.email).erros);
 
-  return validacao;
-};
+    if (validacao.erros.length) validacao.temErro = true;
 
-export { criaContaValidator };
+    return validacao;
+  }
+}

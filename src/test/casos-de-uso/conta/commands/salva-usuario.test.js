@@ -1,16 +1,19 @@
 import { faker } from '@faker-js/faker';
-import { salvaUsuario } from '../../../../casos-de-uso/conta/conta.repository';
+import { ContaRepository } from '../../../../casos-de-uso/conta/conta.repository';
+import { formataData } from '../../../../utils/formataData';
 
 test('Salva usuário', () => {
+  const contaRepository = new ContaRepository();
+
   const fakeAccount = {
     id: faker.datatype.uuid(),
     nome: faker.name.fullName(),
     email: faker.internet.email(),
     senha: faker.internet.password(),
-    dataCriacao: new Date().toISOString().split('T')[0],
+    dataCriacao: formataData(),
   };
 
-  const saveObject = salvaUsuario(fakeAccount);
+  const saveObject = contaRepository.salvar(fakeAccount);
 
   expect(saveObject).toBe(fakeAccount);
 });

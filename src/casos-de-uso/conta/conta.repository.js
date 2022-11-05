@@ -1,5 +1,19 @@
-import { criaUsuario } from './commands/cria-usuario';
-import { salvaUsuario } from './commands/salva-usuario';
-import { listaUsuario } from './commands/lista-usuario';
+import fs from 'fs';
 
-export { salvaUsuario, listaUsuario, criaUsuario };
+export class ContaRepository {
+  salvar(conta) {
+    const contas = this.listar();
+
+    contas.push(conta);
+
+    fs.writeFileSync('./dados/contas.json', JSON.stringify(contas));
+
+    return conta;
+  }
+
+  listar() {
+    const file = fs.readFileSync('./dados/contas.json');
+
+    return JSON.parse(file);
+  }
+}
