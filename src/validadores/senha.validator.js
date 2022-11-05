@@ -1,5 +1,5 @@
 export class SenhaValidator {
-  executa(senha) {
+  async executa(senha) {
     const validacao = {
       temErro: false,
       erros: [],

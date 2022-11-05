@@ -1,5 +1,5 @@
 export class NomeValidator {
-  executa(nome) {
+  async executa(nome) {
     const validacao = {
       temErro: false,
       erros: [],

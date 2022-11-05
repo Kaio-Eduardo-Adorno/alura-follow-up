@@ -1,19 +1,21 @@
-import fs from 'fs';
+import { ConexaoBanco } from '../../infra/conexao-banco.js';
 
 export class ContaRepository {
-  salvar(conta) {
-    const contas = this.listar();
+  #conexaoBanco = new ConexaoBanco();
 
-    contas.push(conta);
+  async salvar(conta) {
+    const conexao = await this.#conexaoBanco.conecta();
 
-    fs.writeFileSync('./dados/contas.json', JSON.stringify(contas));
+    const contaCriada = conexao.collection('contas').insertOne({
+      ...conta,
+    });
 
-    return conta;
+    return contaCriada;
   }
 
-  listar() {
-    const file = fs.readFileSync('./dados/contas.json');
+  async listar() {
+    const conexao = await this.#conexaoBanco.conecta();
 
-    return JSON.parse(file);
+    return await conexao.collection('contas').find({}).toArray();
   }
 }

@@ -1,10 +1,10 @@
 import validator from 'validator';
-import { ContaRepository } from '../casos-de-uso/conta/conta.repository';
+import { ContaRepository } from '../casos-de-uso/conta/conta.repository.js';
 
 export class EmailValidator {
   #ContaRepository = new ContaRepository();
 
-  executa(email) {
+  async executa(email) {
     const validacao = {
       temErro: false,
       erros: [],
@@ -31,7 +31,7 @@ export class EmailValidator {
         mensagem: 'Formato de Email inválido',
       });
 
-    const contasCadastradas = this.#ContaRepository.listar();
+    const contasCadastradas = await this.#ContaRepository.listar();
 
     const existeContaComEmail = contasCadastradas.some(
       (contaCadastrada) => contaCadastrada.email === email
