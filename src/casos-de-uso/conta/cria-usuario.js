@@ -1,12 +1,14 @@
-import { CriaContaValidator } from '../../validadores/cria-conta.validator';
-import { ContaRepository } from './conta.repository';
+import { faker } from '@faker-js/faker';
+import { EntidadeConta } from '../../entidades/conta.entity.js';
+import { CriaContaValidator } from '../../validadores/cria-conta.validator.js';
+import { ContaRepository } from './conta.repository.js';
 
 export class CriaUsuarioCasoDeUso {
   #ContaRepository = new ContaRepository();
   #CriaContaValidator = new CriaContaValidator();
 
-  executa(conta) {
-    const { erros } = this.#CriaContaValidator.executa(conta);
+  async executa(conta) {
+    const { erros } = await this.#CriaContaValidator.executa(conta);
     if (erros?.length > 0) {
       return {
         erros,

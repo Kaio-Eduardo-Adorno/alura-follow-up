@@ -7,15 +7,21 @@ export class CriaContaValidator {
   #NomeValidator = new NomeValidator();
   #SenhaValidator = new SenhaValidator();
 
-  executa(conta) {
+  async executa(conta) {
     const validacao = {
       temErro: false,
       erros: [],
       dados: conta,
     };
-    validacao.erros.push(...this.#SenhaValidator.executa(conta?.senha).erros);
-    validacao.erros.push(...this.#NomeValidator.executa(conta?.nome).erros);
-    validacao.erros.push(...this.#EmailValidator.executa(conta?.email).erros);
+
+    const senhaValidacao = await this.#SenhaValidator.executa(conta?.senha);
+    validacao.erros.push(...senhaValidacao.erros);
+
+    const nomeValidacao = await this.#NomeValidator.executa(conta?.nome);
+    validacao.erros.push(...nomeValidacao.erros);
+
+    const emailValidacao = await this.#EmailValidator.executa(conta?.email);
+    validacao.erros.push(...emailValidacao.erros);
 
     if (validacao.erros.length) validacao.temErro = true;
 

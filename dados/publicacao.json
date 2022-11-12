@@ -1,0 +1,14 @@
+{
+  "_id": {
+    "$oid": "6365a9415676b52cb6c95c3c"
+  },
+  "texto": "Algum Texto",
+  "autor": {
+    "$oid": "63658f86b6272546bc5052ac"
+  },
+  "dataCriacao": {
+    "$date": {
+      "$numberLong": "1667607009906"
+    }
+  }
+}

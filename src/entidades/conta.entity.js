@@ -1,5 +1,4 @@
-import { formataData } from '../utils/formataData';
-import crypto from 'crypto';
+import { formataData } from '../utils/formataData.js';
 
 export class EntidadeConta {
   constructor(nome, email, senha) {
@@ -7,6 +6,5 @@ export class EntidadeConta {
     this.email = email;
     this.senha = senha;
     this.dataCriacao = formataData();
-    this.id =  crypto.randomUUID();
   }
 }

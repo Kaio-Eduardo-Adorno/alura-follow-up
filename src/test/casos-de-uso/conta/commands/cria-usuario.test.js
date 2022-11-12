@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { EntidadeConta } from '../../../../entidades/conta.entity';
 import { CriaUsuarioCasoDeUso } from '../../../../casos-de-uso/conta/cria-usuario';
 
-test('Usuario Criado', () => {
+test('Usuario Criado', async () => {
   const fakeAccount = new EntidadeConta(
     faker.name.fullName(),
     faker.internet.email(),
@@ -10,7 +10,7 @@ test('Usuario Criado', () => {
   );
 
   const criaUsuarioCasoDeUso = new CriaUsuarioCasoDeUso();
-  const result = criaUsuarioCasoDeUso.executa(fakeAccount);
+  const result = await criaUsuarioCasoDeUso.executa(fakeAccount);
 
   expect(result instanceof EntidadeConta).toBe(true);
   expect(result.nome).toBe(fakeAccount.nome);
@@ -18,9 +18,9 @@ test('Usuario Criado', () => {
   expect(result.senha).toBe(fakeAccount.senha);
 });
 
-test('Falha ao criar usuario', () => {
+test('Falha ao criar usuario', async () => {
   const criaUsuarioCasoDeUso = new CriaUsuarioCasoDeUso();
-  const result = criaUsuarioCasoDeUso.executa();
+  const result = await criaUsuarioCasoDeUso.executa();
   expect(result.erros).toStrictEqual([
     { campo: 'senha', mensagem: 'A senha precisa ser do tipo String' },
     { campo: 'senha', mensagem: 'Senha não pode ser vazia' },
